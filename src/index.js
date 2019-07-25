@@ -10,6 +10,18 @@ import "./styles.scss";
 const App = () => {
   const [coinData, setCoinData] = useState([]);
 
+  // const [theme, setTheme] = useState(null);
+  // useEffect(() => {
+  const handleTheme = () => {
+    const body = document.querySelector("body");
+    if (body.className !== "dark-mode") {
+      body.className = "dark-mode";
+    } else {
+      body.className = null;
+    }
+  };
+  // });
+
   useEffect(() => {
     axios
       .get(
@@ -20,7 +32,7 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar handleTheme={handleTheme} />
       <Charts coinData={coinData} />
     </div>
   );
