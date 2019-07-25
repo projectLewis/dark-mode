@@ -6,21 +6,11 @@ import Charts from "./components/Charts";
 import Navbar from "./components/Navbar";
 
 import "./styles.scss";
+import useLocalStorage from "./hooks/useLocaleStorage";
 
 const App = () => {
   const [coinData, setCoinData] = useState([]);
-
-  // const [theme, setTheme] = useState(null);
-  // useEffect(() => {
-  const handleTheme = () => {
-    const body = document.querySelector("body");
-    if (body.className !== "dark-mode") {
-      body.className = "dark-mode";
-    } else {
-      body.className = null;
-    }
-  };
-  // });
+  const [darkMode, setDarkMode] = useLocalStorage("UImode:darkMode", false);
 
   useEffect(() => {
     axios
@@ -32,7 +22,7 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <Navbar handleTheme={handleTheme} />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Charts coinData={coinData} />
     </div>
   );
